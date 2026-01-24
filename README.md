@@ -1,5 +1,9 @@
 # Temporal Lead Calling Workflow
 
+[YouTube Video](https://youtu.be/qZ3l5aZ_sKM)
+
+[Presentation](./temporal.key)
+
 A demo Go application that orchestrates customer call workflows using Temporal. It manages the complete lifecycle of
 lead outreach, from initiating calls via 3CX to updating lead records and logging interactions.
 
