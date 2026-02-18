@@ -30,6 +30,7 @@ func main() {
 	w := worker.New(c, "lead-calling-task-queue", worker.Options{})
 
 	w.RegisterWorkflow(LeadCallingWorkflow)
+
 	w.RegisterActivity(PickLeadActivity)
 	w.RegisterActivity(CallCustomerActivity)
 	w.RegisterActivity(UpdateLeadActivity)
