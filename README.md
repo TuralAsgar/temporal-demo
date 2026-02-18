@@ -156,3 +156,52 @@ Activities are configured with the following retry behavior:
 └── README.md            # This file
 ```
 
+## Terminology
+
+```text
+Temporal Cluster
+├─ Temporal Server
+│  ├─ Frontend Service (gRPC endpoint for SDKs)
+│  │  └─ Handles all SDK requests:
+│  │      ├─ Start Workflow
+│  │      ├─ Signal Workflow
+│  │      └─ Query Workflow
+│  ├─ History Service
+│  │  └─ Stores all workflow & activity events (event history)
+│  └─ Matching Service
+│      └─ Assigns tasks to appropriate task queues
+│
+├─ Persistence (Database)
+│  └─ Stores workflow state, retries, activity results
+│
+└─ Workers (Run Your Code)
+   ├─ SDKs (Go / Java / Rust)
+   │  └─ Talk to Frontend via gRPC
+   │
+   ├─ Workflow Workers
+   │  ├─ Go Parent Workflow
+   │  │   ├─ Executes deterministic workflow logic
+   │  │   ├─ Schedules Activities by name (string)
+   │  │   ├─ Schedules Child Workflows
+   │  │   └─ Waits for completion / signals
+   │  └─ Rust Child Workflow (example)
+   │      └─ Executes independently, reports back to parent
+   │
+   └─ Activity Workers
+       ├─ Go Activity Worker
+       │   └─ Executes Go activities (e.g., UpdateCRM)
+       ├─ Java Activity Worker
+       │   └─ Executes Java activities (e.g., 3CX call)
+       └─ Rust Activity Worker
+           └─ Executes Rust activities (e.g., heavy computation)
+       
+Task Queues
+├─ Workflow Task Queue
+│  └─ Receives workflow tasks from Matching → Workflow Workers poll
+└─ Activity Task Queue
+   └─ Receives activity tasks from Matching → Activity Workers poll
+       ├─ Java worker pulls "CallCustomer"
+       ├─ Rust worker pulls "HeavyComputation"
+       └─ Go worker pulls "UpdateCRM"
+```
+
