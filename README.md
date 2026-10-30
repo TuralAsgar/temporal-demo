@@ -66,6 +66,12 @@ go run .
 ### 3️⃣ Start Workflow via HTTP
 
 ```shell
+make call 1
+```
+
+Or using `curl`:
+
+```shell
 curl -X POST http://localhost:8080/start-call \
   -H "Content-Type: application/json" \
   -d '{
@@ -76,6 +82,12 @@ curl -X POST http://localhost:8080/start-call \
 ```
 
 ### 4️⃣ Simulate 3CX Webhook
+
+```shell
+make answer 1
+```
+
+Or using `curl`:
 
 ```shell
 curl -X POST http://localhost:8080/3cx/webhook \
@@ -147,6 +159,7 @@ Activities are configured with the following retry behavior:
 ## Project Structure
 
 ```
+├── Makefile             # Convenient Makefile shortcuts (call, answer)
 ├── main.go              # Application entry point
 ├── workflows.go         # Workflow definitions
 ├── activites.go         # Activity implementations

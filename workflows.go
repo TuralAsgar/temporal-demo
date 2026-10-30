@@ -18,9 +18,9 @@ func LeadCallingWorkflow(ctx workflow.Context, lead Lead) error {
 		StartToCloseTimeout: 5 * time.Second,
 		RetryPolicy: &temporal.RetryPolicy{
 			InitialInterval:    time.Second,
-			BackoffCoefficient: 4.0,
-			MaximumInterval:    1 * time.Minute,
-			MaximumAttempts:    4,
+			BackoffCoefficient: 3.0,
+			MaximumInterval:    3 * time.Minute,
+			MaximumAttempts:    15,
 			NonRetryableErrorTypes: []string{
 				"ValidationError",
 			},
